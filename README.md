@@ -60,7 +60,7 @@ The tank was chosen to a cylindrical tank to maximize the space usage within the
 
 The density and yield strength are set as constants because if they are included in the optimization problem, the algorithm would push the parameters to the lowest possible density and the highest possible yield strength to minimize the weight of tanks.
 
-In this case, the cone and tanks are assumed to be made of carbon fiber following the average spec values found [here](http://www.matweb.com/search/datasheet_print.aspx?matguid=39e40851fc164b6c9bda29d798bf3726).
+In this case, the cone and tanks are assumed to be made of carbon fiber following the average spec values found [here](http://www.matweb.com/search/datasheet_print.aspx?matguid=39e40851fc164b6c9bda29d798bf3726). Carbon fiber is a material with high yield strength and low density as compared to most metals; however, it can potentially be more difficult to manufacture well due to various factors such as the epoxy bonding structure, thread directions, imperfections, etc.
 
 ## Constraints
 To match the constraints provided in the problem, and also the format needed to use scipy minimize the following constraint equations are used:
@@ -137,7 +137,7 @@ Max height: 2160282.9062626 m
 ```
 Note:
 * These results may not be correct because changing the convergence tolerance can cover up potential error - there is likely a modeling error due to incorrect assumptions or missing information.
-* The model includes a parameter for the height of the fairing. As a result the optimizer is looks to reduce the weight and because the fairing height is not tied to other parameters it is reduced to zero.
+* The model includes a parameter for the height of the fairing. As a result, the optimizer looks to reduce the weight, and because the fairing height is not tied to other parameters or constraints, it is reduced to zero.
 
 **Design Parameters**
 
@@ -154,12 +154,13 @@ Note:
 | Fuel Tank Length | 1.54661117 m|
 
 ## Considerations For Improvement
-* Consider different shaped tanks such as spherical.
+* Consider different shaped tanks such as spherical (to double check previous assumption)
 * For the tanks, the relationship between density and yield strength might be able to modeled in a formulaic relationship that more accurately represents the trade-off between density and structural strength.
 * Better jacobian/gradient calculation using imaginary step instead of other gradient calculation methods (finite difference, symbolic differentiation)
 * Include structural modeling for the rocket to prevent the optimizer for selecting very tall structures.
 * Add additional constraints for other components such as avionics, payload size, fairing size, etc
 * Reduce the convergence tolerance (not sure how to do this, maybe there is a bug in my code)
+* Write out code in an object oriented manner (useful for tracking convergence, parameter change, etc)
 
 ## Resources
 * [Scipy Minimize Documentation](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html)
